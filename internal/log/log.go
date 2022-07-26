@@ -1,7 +1,6 @@
 package log
 
 import (
-	"fmt"
 	"io"
 	"io/ioutil"
 	"os"
@@ -103,7 +102,7 @@ func (l *Log) Read(off uint64) (*api.Record, error) {
 	}
 	// If it's not found or doesn't exist, return an error
 	if s == nil || s.nextOffset <= off {
-		return nil, fmt.Errorf("offset out of range: %d", off)
+		return nil, api.ErrOffestOutOfRange{Offset: off}
 	}
 	// Pass off to segment's index to return the log from the store.
 	return s.Read(off)
