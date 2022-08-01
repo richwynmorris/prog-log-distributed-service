@@ -36,7 +36,7 @@ func NewGRPCServer(config *Config) (*grpc.Server, error) {
 
 func newgrpcServer(config *Config) (srv *grpcServer, err error) {
 	srv = &grpcServer{
-		Config: nil,
+		Config: config,
 	}
 	return srv, nil
 }
