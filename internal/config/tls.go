@@ -14,15 +14,15 @@ func SetupTLSConfig(cfg TLSConfig) (*tls.Config, error) {
 	if cfg.CertFile != "" && cfg.KeyFile != "" {
 		tlsConfig.Certificates = make([]tls.Certificate, 1)
 		tlsConfig.Certificates[0], err = tls.LoadX509KeyPair(
-			cfg.certFile,
-			cfg.keyFile
+			cfg.CertFile,
+			cfg.KeyFile,
 		)
 		if err != nil {
 			return nil, err
 		}
 	}
 	if cfg.CAFile != "" {
-		b, err  := ioutil.ReadFile(cfg.CAFile)
+		b, err := ioutil.ReadFile(cfg.CAFile)
 		if err != nil {
 			return nil, err
 		}
@@ -37,8 +37,8 @@ func SetupTLSConfig(cfg TLSConfig) (*tls.Config, error) {
 		if cfg.Server {
 			tlsConfig.ClientCAs = ca
 			tlsConfig.ClientAuth = tls.RequireAnyClientCert
- 		} else {
-			 tlsConfig.RootCAs = ca
+		} else {
+			tlsConfig.RootCAs = ca
 		}
 		tlsConfig.ServerName = cfg.ServerAddress
 	}
@@ -46,9 +46,9 @@ func SetupTLSConfig(cfg TLSConfig) (*tls.Config, error) {
 }
 
 type TLSConfig struct {
-	CertFile string
-	KeyFile string
-	CAFile string
+	CertFile      string
+	KeyFile       string
+	CAFile        string
 	ServerAddress string
-	Server bool
+	Server        bool
 }
