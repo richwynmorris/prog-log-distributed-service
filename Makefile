@@ -20,9 +20,6 @@ gencert:
 			-config=test/ca-config.json \
 			-profile=client \
 			test/client-csr.json | cfssljson -bare client
-		cfssl gencert \
-			-ca=ca.pem \
-			-ca-key=
 		mv *.pem *.csr ${CONFIG_PATH}
 
 .PHONY:compile
